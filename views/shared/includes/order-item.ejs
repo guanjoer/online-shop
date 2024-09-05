@@ -1,0 +1,45 @@
+<article class="order-item">
+	<header class="order-summary">
+	  <h2><span class="order-item-price"><%= order.formattedTotalPrice %> KRW</span> - <%= order.formattedDate %></h2>
+	  <p><span class="badge"><%= order.status.toUpperCase() %></span></p>
+	</header>
+  
+	<section class="order-details">
+	  <% if (locals.isAdmin) { %>
+		<address>
+		  <p><a class="order-user-name" href="mailto:<%= order.userData.email %>"><%= order.userData.name %></a></p>
+		  <p><%= order.userData.address.addressBasic %> <%= order.userData.address.addressDetail %>(<%= order.userData.address.postalCode %>)</p>
+		</address>
+	  <% } %>
+	  <ul>
+		<% for (const item of order.formattedItems) { %>
+		  <li><%= item.product.title %> - <%= item.formattedTotalPrice %> KRW(<%= item.product.formattedPrice %> x <%= item.quantity %>)</li>
+		<% } %>
+	  </ul>
+	</section>
+  
+	<% if (locals.isAdmin) { %>
+	  <section class="order-actions">
+		<form>
+		  <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+		  <input type="hidden" name="orderid" value="<%= order.id %>">
+		  <select name="status">
+			<option value="pending" <% if (order.status === 'pending') { %>selected<% } %>>Pending</option>
+			<option value="fulfilled" <% if (order.status === 'fulfilled') { %>selected<% } %>>Fulfilled</option>
+			<option value="cancelled" <% if (order.status === 'cancelled') { %>selected<% } %>>Cancelled</option>
+		  </select>
+		  <button class="btn btn-alt">Update</button>
+		</form>
+	  </section>
+	<% } %>
+
+	<!-- order.status = "pending 일때만 표시" -->
+	 <% if(order.status === 'pending') { %>
+		<form action="/orders/cancel/<%= order.id %>" method="POST">
+			<input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+			<% if(!locals.isAdmin) { %>
+				<button class="btn">Cancel Order</button>
+			<% } %>
+		</form>
+	  <% } %>
+  </article>

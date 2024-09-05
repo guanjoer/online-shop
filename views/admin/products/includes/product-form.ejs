@@ -1,0 +1,33 @@
+<form action="<%= submitPath %>?_csrf=<%= locals.csrfToken  %>" method="POST" enctype="multipart/form-data">
+			<p>
+				<label for="title">Title</label>
+				<input type="text" id="title" name="title" value="<%= product.title %>" required>
+			</p>
+
+			<div id="image-preview-control">
+				<p>
+					<label for="image">Image</label>
+					<input type="file" id="image" name="image" accept="image/png,image/jpg" <% if(imageRequired) { %> required <% } %>>
+				</p>
+
+				<img src="/products/assets/images/e3a19d0f-bfdf-4f5a-aad3-2e3a76804cb7-liam-pozz-efOgkiiCdqU-unsplash.jpg" alt="Selected Image">
+			</div>
+			<p>
+				<label for="summary">Summary</label>
+				<input type="text" id="summary" name="summary" value="<%= product.summary  %>" required maxlength="250">
+			</p>
+			<p>
+				<label for="price">Price</label>
+				<!-- Korea dollar Won ; 1 dollars ~= 1000 won-->
+				<input type="number" id="price" name="price" value="<%= product.price %>" min="100" step="100" required>
+				<!-- <input type="text" id="price" name="price" value="<%= product.price %>" required> -->
+			</p>
+			<p>
+				<label for="description">Description</label>
+				<textarea name="description" id="description" rows="7" required><%= product.description %></textarea>
+			</p>
+			<p>
+				<button type="reset" class="btn btn-alt">Reset</button>
+				<button type="submit" class="btn">Save</button>
+			</p>
+		</form>
