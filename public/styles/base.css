@@ -115,3 +115,9 @@ a {
 	padding: 0.15rem 1rem;
 	color: var(--color-gray-400);
 }
+
+#logo {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

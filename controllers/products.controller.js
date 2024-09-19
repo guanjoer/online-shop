@@ -7,6 +7,7 @@ async function getAllProducts(req, res, next) {
 
 		if(searchQuery) {
 			products = await Product.search(searchQuery);
+
 		} else {
 			// DB내의 키-값 쌍이, Product 클래스의 파라미터로 들어가, 각각의 객체 정보 생성
 			products = await Product.findAll();
@@ -15,9 +16,8 @@ async function getAllProducts(req, res, next) {
 		products.forEach(product => {
 			product.formattedPrice = product.formatPrice();
 		});
-		// console.log(products);
-		res.render('customer/products/all-products', {products: products});
-		
+		res.render('customer/products/all-products', {products: products, searchQuery: searchQuery});
+
 	} catch (error) {
 		error.code = 500;
 		next(error);		

@@ -1,4 +1,25 @@
+<script>
+    document.getElementById('searchButton').addEventListener('click', function (e) {
+        const searchInput = document.getElementById('searchInput').value;
+        
+        if (searchInput.trim() === "") { 
+            e.preventDefault(); 
+        } else {
+            document.getElementById('searchForm').submit();  // 검색어가 있으면 폼 제출
+        }
+    });
+</script>
+
 <ul class="nav-items">
+	<!-- 검색창을 nav 내부로 이동 -->
+	<li>
+		<form action="/products" method="GET" id="searchForm">
+			<div class="search-box">
+				<button class="btn-search" id="searchButton"><i class="fas fa-search"></i></button>
+				<input type="text" name="search" class="input-search" id="searchInput" placeholder="Type to Search...">
+			</div>
+		</form>
+	</li>
 	<!-- // 관리자가 아닌 경우에만 -->
 	<% if(!locals.isAdmin) { %>
 		<li><a href="/">Shop</a></li>
