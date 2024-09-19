@@ -12,6 +12,7 @@ form {
 	/* 인라인 요소만이 text-align 가능, block 요소는 margin: 0 auto; 를 통해서 가운데 정렬. */
 	text-align: center;
 	box-shadow: var(--shadow-medium);
+	font-weight: bold;
 }
 
 form a {

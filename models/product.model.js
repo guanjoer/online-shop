@@ -20,6 +20,18 @@ class Product {
 		};
 	};
 
+	static async search(searchQuery) {
+		const products = await db.getDb().collection('products').find({
+			$or: [
+				{ title: { $regex: searchQuery, $options: 'i' } },
+				{ summary: { $regex: searchQuery, $options: 'i' } },
+				{ description: { $regex: searchQuery, $options: 'i' } }
+			]
+		}).toArray();
+	
+		return products.map(productDocument => new Product(productDocument));
+	}
+
 	static async findById(productId) {
 		// productId는 16진수 문자열이므로, DB에 실제적으로 저장된 id의 값인 12바이트의 이진 데이터로 변환하기 위해서는,
 		// mongodb의 ObjectId라는 클래스를 인스턴스화 하여 적용시킬 필요가 있다.
