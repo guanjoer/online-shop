@@ -3,12 +3,9 @@ const Product = require('../models/product.model');
 async function getAllProducts(req, res, next) {
 	try {
 		let products;
-		let searchQuery;
-		
-		if(!searchQuery == '') {
-			searchQuery = req.query.search || ''; // 검색어를 쿼리로 받음
+		let searchQuery = req.query.search || ''; 
 
-			// 검색 조건 추가
+		if(searchQuery) {
 			products = await Product.search(searchQuery);
 		} else {
 			// DB내의 키-값 쌍이, Product 클래스의 파라미터로 들어가, 각각의 객체 정보 생성
