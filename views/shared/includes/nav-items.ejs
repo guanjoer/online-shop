@@ -5,13 +5,12 @@
         if (searchInput.trim() === "") { 
             e.preventDefault(); 
         } else {
-            document.getElementById('searchForm').submit();  // 검색어가 있으면 폼 제출
+            document.getElementById('searchForm').submit();
         }
     });
 </script>
 
 <ul class="nav-items">
-	<!-- 검색창을 nav 내부로 이동 -->
 	<li>
 		<form action="/products" method="GET" id="searchForm">
 			<div class="search-box">
