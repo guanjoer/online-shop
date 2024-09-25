@@ -1,18 +1,24 @@
-## GuanJo Online Shop
+# GuanJo Online Shop
 
-주요 기술 스택을 `Node.js`, `Express.js`, `MongoDB`를 사용하여 만든 **풀스택 온라인 쇼핑몰 웹 사이트**입니다.
+`Node.js`, `Express.js`, `MongoDB`을 주요 기술 스택으로 사용하여 만든 **풀스택 온라인 쇼핑몰 웹 사이트**입니다.
 
 ---
 
 **주요 기능:**
 
-- 회원 가입 및 로그인
-- 물품 CRUD
+- 회원 가입 및 로그인(세션 기반 인증)
+- 물품 CRUD(Create/Read/Update/Delete)
 - 장바구니
+- 물품 검색
 - 포트원 API를 이용한 물품 결제
 - 물품 가격 변조에 대한 서버 측 검증 로직 존재
-- 물품 장바구니 추가, 수정, 삭제 시 Ajax 처리 및 DOM 업데이트
-- ROLE 기반 접근 제어
+- **XSS**, **NoSQLi** 공격에 대한 대응 로직 존재
+	- 동적 HTML 생성을 담당하는 `ejs`엔진을 사용하는 파일에서 `<%= %>` 사용
+	- `express-session` 라이브러리를 통해 세션 관리 및 `httpOnly` 플래그 적용
+	- 사용자 아이디에 `@`을 포함해야 하며, 비밀번호는 `bcrypt.compare(this.password, hashedPassword)`를 통해 검증
+	- `express-mongo-sanitize` 혹은 `mongo-sanitize` 라이브러리를 사용하여 `$`, `.`과 같이 악의적인 사용자 입력값에 대해 **Sanitize**
+- 물품 장바구니 추가, 수정, 삭제 시 `Ajax` 처리 및 `DOM` 업데이트
+- **ROLE** 기반 접근 제어
 
 	- 관리자 ROLE인 사용자의 경우에만 **관리자 페이지에 접근** 가능
 	- 관리자인 경우에만 **물품의 추가, 수정, 삭제** 가능.

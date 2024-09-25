@@ -1,5 +1,5 @@
 {
-  "name": "guanjoer-online-shop",
+  "name": "guanjo-online-shop",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
@@ -19,7 +19,9 @@
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "express-mongo-sanitize": "^2.2.0",
     "express-session": "^1.18.0",
+    "mongo-sanitize": "^1.1.0",
     "mongodb": "^6.7.0",
     "multer": "^1.4.5-lts.1",
     "stripe": "^15.11.0",

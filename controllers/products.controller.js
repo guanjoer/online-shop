@@ -1,11 +1,14 @@
 const Product = require('../models/product.model');
 
+const sanitize = require('mongo-sanitize');
+
 async function getAllProducts(req, res, next) {
 	try {
 		let products;
 		let searchQuery = req.query.search || ''; 
 
 		if(searchQuery) {
+			searchQuery = sanitize(searchQuery);
 			products = await Product.search(searchQuery);
 
 		} else {

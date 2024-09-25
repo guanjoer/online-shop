@@ -21,6 +21,10 @@ class Product {
 	};
 
 	static async search(searchQuery) {
+		// if (typeof searchQuery !== 'string' || searchQuery.includes('$')) {
+		// 	throw new Error('Invalid search query');
+		//   }
+
 		const products = await db.getDb().collection('products').find({
 			$or: [
 				{ title: { $regex: searchQuery, $options: 'i' } },

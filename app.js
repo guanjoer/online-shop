@@ -7,6 +7,7 @@ const path = require('path');
 const express = require('express');
 const csrf = require('csurf');
 const expressSession = require('express-session');
+const mongoSanitize = require('express-mongo-sanitize');
 
 // Custom modules
 const db = require('./data/database');
@@ -47,6 +48,8 @@ app.use(updateCartPricesMiddleware);
 app.use(addCsrfTokenMiddleware); 
 
 app.use(checkAuthStatusMiddleware);
+
+app.use(mongoSanitize());
 
 app.use(baseRoutes);
 app.use(productsRoutes);

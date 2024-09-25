@@ -4,6 +4,8 @@ const authUtil = require('../util/authentication');
 const validationUtil = require('../util/validation');
 const sessionFlashUtil = require('../util/session-flash');
 
+const sanitize = require('mongo-sanitize');
+
 function getSignup(req, res) {
 	let flashedData = sessionFlashUtil.getSessionData(req);
 
@@ -26,14 +28,14 @@ function getSignup(req, res) {
 
 async function signup(req, res, next) {
 		enteredData = {
-			email: req.body.email,
-			confirmEmail: req.body['confirm-email'],
-			password: req.body.password,
-			confirmPassword: req.body['confirm-password'],
-			fullname: req.body.fullname,
-			postalCode: req.body.postalCode,
-			address: req.body.address,
-			addressDetail: req.body.addressDetail
+			email: sanitize(req.body.email),
+			confirmEmail: sanitize(req.body['confirm-email']),
+			password: sanitize(req.body.password),
+			confirmPassword: sanitize(req.body['confirm-password']),
+			fullname: sanitize(req.body.fullname),
+			postalCode: sanitize(req.body.postalCode),
+			address: sanitize(req.body.address),
+			addressDetail: sanitize(req.body.addressDetail)
 		}
 
 		// 입력 데이터가 공백이거나 비밀번호가 7자리 미만인지 혹은 이메일, 비밀번호와 confirm-email, confirm-password의 값이 같은지 확인
@@ -62,12 +64,13 @@ async function signup(req, res, next) {
 		}
 
 		const user = new User(
-			req.body.email,
-			req.body.password,
-			req.body.fullname,
-			req.body.postalCode,
-			req.body.address,
-			req.body.addressDetail);
+			sanitize(req.body.email),
+			sanitize(req.body.password),
+			sanitize(req.body.fullname),
+			sanitize(req.body.postalCode),
+			sanitize(req.body.address),
+			sanitize(req.body.addressDetail)
+		);
 
 		try {
 			// DB의 users 컬렉션에 입력한 이메일이 이미 존재하는지 확인.
