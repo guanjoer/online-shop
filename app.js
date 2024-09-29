@@ -63,7 +63,7 @@ app.use(notFoundHandlerMiddleware);
 
 app.use(errorHandlerMiddleware);
 
-const PORT = 3000 || process.env.PORT
+const PORT = process.env.PORT || 3000
 
 db.connectToDatabase()
 	.then(function() {

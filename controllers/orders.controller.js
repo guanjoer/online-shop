@@ -47,7 +47,7 @@ async function addOrder(req, res, next) {
 			return;
 		};
 		
-		const PORTONE_API_SECRET = 'yourPortOneAPISecret'; // yourPortOneAPISecret
+		const PORTONE_API_SECRET = process.env.PORTONE_API_SECRET; // yourPortOneAPISecret
 
 		let paymentResponse;
 		try {
