@@ -138,7 +138,9 @@ async function emailIsExisted(req, res, next) {
 };
 
 async function login(req, res, next) {
-	const user = new User(req.body.email, req.body.password);
+	const userid = sanitize(req.body.email)
+	const userpwd = sanitize(req.body.password)
+	const user = new User(userid, userpwd);
 
 	let existingUser;
 	try {

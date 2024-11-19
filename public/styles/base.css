@@ -116,8 +116,3 @@ a {
 	color: var(--color-gray-400);
 }
 
-#logo {
-	display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
